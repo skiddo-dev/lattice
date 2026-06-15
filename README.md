@@ -30,6 +30,10 @@ running locally you get the full experience out of the box (the default
 - **Telemetry** (`/telemetry`) — backend health + latency, Ollama's loaded
   models and VRAM, GPU utilization, a throughput trend, and recent requests.
   Refreshes every 2s.
+- **Agents** (`/agents`) — saved prompts that run on your rig on demand or on a
+  schedule (`manual`, every N minutes, or daily at HH:MM). Each agent keeps a
+  run history with full metrics, and scheduled runs show up in telemetry tagged
+  with the agent name. An in-process scheduler fires due jobs even with no UI open.
 
 ## Configuration
 
@@ -46,6 +50,7 @@ configured" in the UI.
 | `OPENAI_MODEL` | Cloud default model (`gpt-4o-mini`). |
 | `OPENAI_BASE_URL` | Point the "cloud" backend at any OpenAI-compatible API. |
 | `GPU_EXPORTER_URL` | Optional JSON GPU-stats endpoint on the rig. If unset, Lattice tries local `nvidia-smi`, else shows "not configured". |
+| `DATA_DIR` | Where agent definitions + run history persist (default `./data`). |
 | `PORT` | Server port (default `8770`). |
 
 ## Exposing over Tailscale
@@ -79,6 +84,8 @@ Blueprint token vocabulary.
 
 ## Roadmap
 
-Phase 2: scheduled agents/cron against local models · one-command Tailscale
-packaging · cloud spend telemetry · a GPU-exporter recipe · a routing-rules
-engine (by model / size / cost) · optional shared-secret gate.
+Shipped: routing chat console · live telemetry · scheduled agents.
+
+Next: one-command Tailscale packaging · cloud spend telemetry · a GPU-exporter
+recipe · a routing-rules engine (by model / size / cost) · optional
+shared-secret gate.

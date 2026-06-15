@@ -181,7 +181,7 @@
                 <tr class:rowerr={!r.ok}>
                   <td>{fmtRelTime(r.at)}</td>
                   <td><span class="route {r.backend}">{r.backend}</span></td>
-                  <td class="mono modelcell">{r.model}{#if !r.ok}<span class="bad"> · failed</span>{/if}</td>
+                  <td class="mono modelcell">{r.model}{#if r.agent}<span class="agenttag" title="scheduled agent">⏱ {r.agent}</span>{/if}{#if !r.ok}<span class="bad"> · failed</span>{/if}</td>
                   <td class="num">{fmtInt(r.completionTokens)}</td>
                   <td class="num accent">{fmtTokPerSec(r.tokensPerSec)}</td>
                   <td class="num">{fmtMs(r.ttftMs)}</td>
@@ -246,7 +246,8 @@
   td { padding: 7px 8px; border-bottom: 1px solid var(--border-soft); color: var(--text-body); }
   .num { text-align: right; white-space: nowrap; }
   .accent { color: var(--success); font-weight: 600; }
-  .modelcell { max-width: 220px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+  .modelcell { max-width: 240px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+  .agenttag { margin-left: 6px; font-size: var(--font-2xs); font-weight: 700; color: var(--primary-text); background: var(--primary-bg); padding: 1px 6px; border-radius: var(--radius-pill); }
   .rowerr td { opacity: 0.7; }
   .route { font-size: var(--font-2xs); font-weight: 700; padding: 1px 7px; border-radius: var(--radius-pill); background: var(--chip-bg); color: var(--primary-text); text-transform: uppercase; }
   .route.local { background: var(--success-bg); color: var(--success); }
