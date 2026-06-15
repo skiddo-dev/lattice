@@ -13,6 +13,7 @@
 
   const NAV = [
     { href: '/', label: 'Chat' },
+    { href: '/agents', label: 'Agents' },
     { href: '/telemetry', label: 'Telemetry' },
   ]
 

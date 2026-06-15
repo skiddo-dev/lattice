@@ -9,6 +9,8 @@ export interface RequestRecord extends ChatMetrics {
   at: string
   ok: boolean
   error?: string
+  /** Set when the request came from a scheduled agent (its name), not the chat UI. */
+  agent?: string
 }
 
 const MAX = 100

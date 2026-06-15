@@ -44,10 +44,64 @@ export interface RequestRecord extends ChatMetrics {
   at: string
   ok: boolean
   error?: string
+  /** Set when the request came from a scheduled agent (its name). */
+  agent?: string
 }
 
 export interface TelemetrySnapshot {
   cards: TelemetryCard[]
   recent: RequestRecord[]
   refreshedAt: string
+}
+
+// --- Agents (scheduled jobs) ---
+
+export type Schedule =
+  | { kind: 'manual' }
+  | { kind: 'interval'; everyMinutes: number }
+  | { kind: 'daily'; at: string }
+
+export interface AgentRun {
+  id: string
+  at: string
+  ok: boolean
+  backend: BackendId | null
+  model: string
+  output: string
+  error?: string
+  metrics: { ttftMs: number | null; tokensPerSec: number | null; completionTokens: number | null; durationMs: number }
+  trigger: 'manual' | 'schedule'
+}
+
+/** List view (GET /api/agents). */
+export interface AgentListItem {
+  id: string
+  name: string
+  mode: Mode
+  model: string | null
+  schedule: Schedule
+  enabled: boolean
+  createdAt: number
+  lastRunAt: number | null
+  lastStatus: 'ok' | 'error' | null
+  nextRunAt: number | null
+  runCount: number
+  promptPreview: string
+}
+
+/** Detail view (GET /api/agents/[id]). */
+export interface AgentDetail {
+  id: string
+  name: string
+  prompt: string
+  system?: string
+  mode: Mode
+  model?: string
+  schedule: Schedule
+  enabled: boolean
+  createdAt: number
+  lastRunAt: number | null
+  lastStatus: 'ok' | 'error' | null
+  nextRunAt: number | null
+  runs: AgentRun[]
 }
