@@ -1,0 +1,234 @@
+/* System font — no external request, no layout shift */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+html, body {
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Helvetica Neue',
+               Arial, system-ui, sans-serif;
+  font-size: var(--font-md);
+  background: var(--bg);
+  color: var(--text);
+  height: 100%;
+  -webkit-text-size-adjust: 100%;
+  text-size-adjust: 100%;
+  -webkit-tap-highlight-color: transparent;
+}
+
+/* Design tokens — the app's palette in one place. The vocabulary is lifted from
+   the Blueprint design system so Lattice feels like a sibling. Keep literal
+   values here only; reference them everywhere else as var(--token). */
+:root {
+  /* Brand */
+  --primary: #6366f1;
+  --primary-dark: #4f46e5;
+  --primary-bg: #eef2ff;
+  --primary-text: #4338ca;
+  --primary-border: #c7d2fe;
+  --link: var(--primary-dark);
+
+  /* Text (dark → faint) */
+  --text: #1e293b;
+  --text-body: #374151;
+  --text-muted: #64748b;
+  --text-soft: #475569;
+  --text-faint: #8290a6;
+  --muted: var(--text-muted);
+
+  /* Surfaces & borders */
+  --bg: #f8fafc;
+  --card-bg: #ffffff;
+  --border: #e2e8f0;
+  --border-soft: #f1f5f9;
+  --border-card: #e8ecf1;
+
+  /* Semantic status colors */
+  --success: #047857;
+  --success-bg: #d1fae5;
+  --success-border: #a7f3d0;
+  --success-vivid: #10b981;
+  --warning: #b45309;
+  --warning-bg: #fef3c7;
+  --warning-border: #fde68a;
+  --danger: #c81e1e;
+  --danger-bg: #fee2e2;
+  --danger-bg-subtle: #fef2f2;
+  --danger-border: #fecaca;
+  --info: #1d4ed8;
+  --info-bg: #dbeafe;
+
+  /* Radius scale */
+  --radius-sm: 4px;
+  --radius-md: 8px;
+  --radius-lg: 12px;
+  --radius-xl: 16px;
+  --radius-pill: 999px;
+
+  /* Type scale */
+  --font-2xs: 10px;
+  --font-xs: 11px;
+  --font-sm: 12px;
+  --font-base: 13px;
+  --font-md: 14px;
+  --font-lg: 16px;
+  --font-xl: 18px;
+  --font-2xl: 22px;
+  --font-3xl: 28px;
+
+  /* Z layers */
+  --z-topbar: 20;
+  --z-popover: 30;
+  --z-bar: 50;
+  --z-toast: 80;
+
+  /* Motion */
+  --speed-fast: 0.12s;
+  --speed: 0.15s;
+  --speed-slow: 0.4s;
+
+  /* Effects (themed) */
+  --shadow: 0 1px 4px rgba(15, 23, 42, 0.06);
+  --shadow-hover: 0 6px 20px rgba(15, 23, 42, 0.11);
+  --shadow-pop: 0 8px 28px rgba(15, 23, 42, 0.16);
+  --focus-halo: 0 0 0 3px rgba(99, 102, 241, 0.12);
+  --focus-ring: 0 0 0 2px rgba(99, 102, 241, 0.35);
+  --glow-primary: 0 2px 8px rgba(99, 102, 241, 0.35);
+  --glow-primary-hover: 0 4px 14px rgba(99, 102, 241, 0.45);
+  --chip-bg: #e0e7ff;
+  --scrollbar-thumb: #cbd5e1;
+
+  /* Mesh accent — Lattice signature gradient (header brand, live ticks). */
+  --mesh: linear-gradient(135deg, #6366f1 0%, #8b5cf6 50%, #06b6d4 100%);
+}
+
+/* Dark theme — the boot script in app.html sets data-theme pre-paint. */
+:root[data-theme="dark"] {
+  --primary: #7c87f8;
+  --primary-dark: #5f62ef;
+  --primary-bg: #1e1b4b;
+  --primary-text: #c7d2fe;
+  --primary-border: #c7d2fe;
+  --link: var(--primary);
+
+  --text: #f1f5f9;
+  --text-body: #e2e8f0;
+  --text-muted: #94a3b8;
+  --text-soft: #cbd5e1;
+  --text-faint: #64748b;
+
+  --bg: #0f172a;
+  --card-bg: #1e293b;
+  --border: #334155;
+  --border-soft: #233044;
+  --border-card: #334155;
+
+  --shadow: 0 1px 4px rgba(0, 0, 0, 0.40);
+  --shadow-hover: 0 8px 24px rgba(0, 0, 0, 0.55);
+  --shadow-pop: 0 8px 28px rgba(0, 0, 0, 0.5);
+  --focus-halo: 0 0 0 3px rgba(124, 135, 248, 0.2);
+  --focus-ring: 0 0 0 2px rgba(124, 135, 248, 0.45);
+  --chip-bg: #3730a3;
+  --scrollbar-thumb: #475569;
+
+  --success: #6ee7b7;
+  --success-bg: #064e3b;
+  --success-border: #065f46;
+  --success-vivid: #34d399;
+  --warning: #fcd34d;
+  --warning-bg: #422006;
+  --warning-border: #92400e;
+  --danger: #fca5a5;
+  --danger-bg: #3f1d1d;
+  --danger-bg-subtle: #2d1818;
+  --danger-border: #7f1d1d;
+  --info: #93c5fd;
+  --info-bg: #1e3a5f;
+}
+
+::-webkit-scrollbar { width: 6px; height: 6px; }
+::-webkit-scrollbar-track { background: var(--border-soft); }
+::-webkit-scrollbar-thumb { background: var(--scrollbar-thumb); border-radius: 3px; }
+
+a { color: var(--link); }
+
+h1, h2, h3 { color: var(--text); line-height: 1.25; }
+
+/* Buttons */
+button {
+  cursor: pointer;
+  font-family: inherit;
+  font-size: var(--font-base);
+  font-weight: 500;
+  border-radius: var(--radius-md);
+  border: 1px solid transparent;
+  padding: 7px 14px;
+  transition: all var(--speed) ease;
+  color: var(--text-body);
+  background: var(--card-bg);
+}
+button:focus-visible, a:focus-visible, input:focus-visible, select:focus-visible, textarea:focus-visible {
+  outline: none;
+  box-shadow: var(--focus-ring);
+}
+button:disabled { opacity: 0.55; cursor: not-allowed; }
+
+button.primary, .btn-primary {
+  background: linear-gradient(135deg, var(--primary-dark) 0%, var(--primary) 100%);
+  color: #fff;
+  border-color: transparent;
+  box-shadow: var(--glow-primary);
+}
+button.primary:hover:not(:disabled), .btn-primary:hover:not(:disabled) { box-shadow: var(--glow-primary-hover); }
+
+button.secondary, .btn-secondary {
+  background: var(--card-bg);
+  border: 1px solid var(--border);
+  color: var(--text-body);
+}
+button.secondary:hover:not(:disabled) { border-color: var(--primary-border); }
+
+button.ghost { background: transparent; border-color: transparent; color: var(--text-muted); }
+button.ghost:hover:not(:disabled) { color: var(--text); background: var(--border-soft); }
+
+/* Form controls */
+input, select, textarea {
+  font-family: inherit;
+  font-size: var(--font-base);
+  color: var(--text-body);
+  background: var(--card-bg);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-md);
+  padding: 7px 10px;
+  transition: border-color var(--speed) ease, box-shadow var(--speed) ease;
+}
+input:focus, select:focus, textarea:focus { border-color: var(--primary); box-shadow: var(--focus-halo); }
+
+/* Reusable surfaces */
+.card {
+  background: var(--card-bg);
+  border: 1px solid var(--border-card);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow);
+}
+
+.pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  font-size: var(--font-xs);
+  font-weight: 600;
+  padding: 2px 9px;
+  border-radius: var(--radius-pill);
+  background: var(--chip-bg);
+  color: var(--primary-text);
+  white-space: nowrap;
+}
+
+.muted { color: var(--text-muted); }
+.mono { font-family: ui-monospace, 'SF Mono', 'Cascadia Code', Menlo, Consolas, monospace; }
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+  }
+}
